@@ -7,7 +7,7 @@ inputs:
     required: false
   mysql_version:
     description: 'The MySQL version to run'
-    default: '5.7'
+    default: '8.0'
     required: false
   db_name:
     description: 'The DB name. Default is [test_db]'
