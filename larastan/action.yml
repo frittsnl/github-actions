@@ -35,7 +35,7 @@ runs:
       shell: bash
 
     ### If not supported (yet) https://github.com/actions/runner/issues/834
-    - name: Link github token to composer; allows accesing sundata-package on github
+    - name: Link github token to composer; allows accessing sundata-package on github
       run: |
         if echo ${{ inputs.sd_github_access_token }} | grep -c "false"
         then

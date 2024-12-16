@@ -82,7 +82,7 @@ runs:
         coverage: ${{ inputs.php_coverage }}
         tools: ${{ inputs.php_tools }}
 
-    - name: Replace set-output thingy
+    - name: Set directory for cache
       id: composer-cache
       shell: bash
       run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -95,7 +95,7 @@ runs:
         restore-keys: ${{ runner.os }}-PHP${{ inputs.php_version }}-composer-
 
     ### If not supported (yet) https://github.com/actions/runner/issues/834
-    - name: Link github token to composer; allows accesing sundata-package on github
+    - name: Link github token to composer; allows accessing sundata-package on github
       run: |
         if echo ${{ inputs.sd_github_access_token }} | grep -c "false"
         then
