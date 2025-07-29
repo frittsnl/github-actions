@@ -99,7 +99,7 @@ runs:
         COMPOSER_AUTH: |
           {
             "github-oauth": {
-              "github.com": "${{ secrets.SUNDATA_GITHUB_ACCESS_TOKEN_SECRET }}"
+              "github.com": "${{ inputs.sd_github_access_token }}"
             }
           }
       run: composer install ${{ inputs.composer_install_options }}
