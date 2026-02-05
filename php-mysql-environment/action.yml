@@ -3,7 +3,7 @@ name: "Setup PHP and Mysql"
 inputs:
   php_version:
     description: 'The PHP version to run'
-    default: '7.4'
+    default: '8.4'
     required: false
   mysql_version:
     description: 'The MySQL version to run'
