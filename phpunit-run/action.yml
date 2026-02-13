@@ -1,0 +1,9 @@
+name: "Run PHPUnit"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Test with phpunit
+      run: vendor/bin/phpunit --fail-on-risky --fail-on-incomplete --fail-on-skipped --fail-on-deprecation --fail-on-phpunit-deprecation
+      shell: bash
+
