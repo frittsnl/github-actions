@@ -91,20 +91,6 @@ runs:
       run: composer install ${{ inputs.composer_install_options }}
       shell: bash
 
-    - name: Wait for MySQL
-      run: |
-        while ! mysqladmin ping --host=127.0.0.1 --password=${{ inputs.db_password }} --user=${{ inputs.db_username }} --port=${{ inputs.db_port }} --silent
-        do
-            echo "Waiting for MySQL..."
-            ((count++)) && ((count==30)) && break
-            sleep 1
-        done
-      shell: bash
-
-    - name: Debug MySQL version
-      run: mysql --host=127.0.0.1 -u ${{ inputs.db_username }} -p${{ inputs.db_password }} --port=${{ inputs.db_port }} -e "SHOW VARIABLES LIKE \"%version%\";"
-      shell: bash
-
     - name: Debug PHP version
       run: php -v
       shell: bash
