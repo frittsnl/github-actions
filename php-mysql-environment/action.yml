@@ -48,7 +48,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-
     - name: Test defaults
       run: |
         echo DB Username ${{ inputs.db_username }}
@@ -59,18 +58,6 @@ runs:
     - name: Shutdown Ubuntu MySQL (SUDO)
       run: sudo service mysql stop
       shell: bash
-
-    - name: "Setup MySQL"
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        host port: ${{ inputs.db_port }}
-        container port: ${{ inputs.db_port }}
-        character set server: 'utf8'
-        collation server: 'utf8_general_ci'
-        mysql version: ${{ inputs.mysql_version }}
-        mysql database: ${{ inputs.db_name }}
-        mysql user: ${{ inputs.db_username }}
-        mysql password: ${{ inputs.db_password }}
 
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
@@ -102,20 +89,6 @@ runs:
             }
           }
       run: composer install ${{ inputs.composer_install_options }}
-      shell: bash
-
-    - name: Wait for MySQL
-      run: |
-        while ! mysqladmin ping --host=127.0.0.1 --password=${{ inputs.db_password }} --user=${{ inputs.db_username }} --port=${{ inputs.db_port }} --silent
-        do
-            echo "Waiting for MySQL..."
-            ((count++)) && ((count==30)) && break
-            sleep 1
-        done
-      shell: bash
-
-    - name: Debug MySQL version
-      run: mysql --host=127.0.0.1 -u ${{ inputs.db_username }} -p${{ inputs.db_password }} --port=${{ inputs.db_port }} -e "SHOW VARIABLES LIKE \"%version%\";"
       shell: bash
 
     - name: Debug PHP version
