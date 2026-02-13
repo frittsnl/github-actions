@@ -1,4 +1,4 @@
-name: "Setup PHP and Composer"
+name: "Repo-, PHP-, Composer setup"
 
 inputs:
   php_version:
@@ -28,6 +28,8 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
     - name: Test defaults
       run: |
         echo PHP version ${{ inputs.php_version }}
