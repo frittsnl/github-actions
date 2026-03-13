@@ -65,7 +65,8 @@ runs:
         key: ${{ runner.os }}-PHP${{ inputs.php_version }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-PHP${{ inputs.php_version }}-composer-
 
-    - name: Install Composer dependencies
+    - name: Install Composer dependencies with auth
+      if: ${{ inputs.sd_github_access_token != '' }}
       env:
         COMPOSER_AUTH: |
           {
@@ -73,6 +74,11 @@ runs:
               "github.com": "${{ inputs.sd_github_access_token }}"
             }
           }
+      run: composer install ${{ inputs.composer_install_options }}
+      shell: bash
+
+    - name: Install Composer dependencies without auth
+      if: ${{ inputs.sd_github_access_token == '' }}
       run: composer install ${{ inputs.composer_install_options }}
       shell: bash
 
